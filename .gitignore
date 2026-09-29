@@ -1,0 +1,8 @@
+﻿models/saved/
+data/processed/
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pkl
+*.bin
+.env

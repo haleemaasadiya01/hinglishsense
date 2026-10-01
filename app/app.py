@@ -30,7 +30,7 @@ LABEL_EMOJI = {"positive": "😊", "negative": "😞", "neutral": "😐"}
 LABEL_COLOR = {"positive": "#22c55e", "negative": "#ef4444", "neutral": "#f59e0b"}
 
 BASELINE_PATH = Path("models/saved/baseline_tfidf_lr.pkl")
-XLMR_PATH     = Path("models/saved/multilingual_distilbert")
+XLMR_PATH     = "Haleemaaa01/hinglishsense-model"   # loads from HuggingFace Hub
 MAX_LEN       = 128
 
 
@@ -43,12 +43,10 @@ def load_baseline():
     return joblib.load(BASELINE_PATH)
 
 
-@st.cache_resource(show_spinner="Loading XLM-RoBERTa … (first run may take a moment)")
+@st.cache_resource(show_spinner="Loading transformer model … (first run downloads weights)")
 def load_transformer():
-    if not XLMR_PATH.exists():
-        return None, None
-    tokenizer = AutoTokenizer.from_pretrained(str(XLMR_PATH))
-    model     = AutoModelForSequenceClassification.from_pretrained(str(XLMR_PATH))
+    tokenizer = AutoTokenizer.from_pretrained(XLMR_PATH)
+    model     = AutoModelForSequenceClassification.from_pretrained(XLMR_PATH)
     model.eval()
     return tokenizer, model
 
